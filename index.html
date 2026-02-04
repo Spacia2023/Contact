@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Save Driver Contact - Kumar (Spacia Cab Service)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: #333;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            pointer-events: none;
+        }
+        
+        .contact-container {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            padding: 30px 20px;
+            margin: 20px;
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.6s ease-out;
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 40px);
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            align-self: center;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .driver-profile {
+            text-align: center;
+            margin-bottom: 25px;
+            animation: fadeIn 0.8s ease-out 0.3s both;
+        }
+        
+        .driver-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s ease;
+        }
+        
+        .driver-avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .driver-avatar i {
+            font-size: 40px;
+            color: white;
+        }
+        
+        .verified-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 28px;
+            height: 28px;
+            background: #00d4ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0, 212, 255, 0.5);
+        }
+        
+        .verified-badge i {
+            font-size: 14px;
+            color: white;
+        }
+        
+        .driver-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 6px;
+        }
+        
+        .driver-service {
+            font-size: 15px;
+            color: #718096;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 10px;
+        }
+        
+        .rating i {
+            color: #fbbf24;
+            font-size: 14px;
+        }
+        
+        .rating-text {
+            color: #718096;
+            font-size: 13px;
+            margin-left: 6px;
+        }
+        
+        .description {
+            text-align: center;
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            padding: 0 5px;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+        
+        .contact-info {
+            margin-bottom: 25px;
+            animation: fadeIn 0.8s ease-out 0.5s both;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+            padding: 14px;
+            border-radius: 16px;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transform: translateX(5px);
+        }
+        
+        .contact-item:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .contact-item a {
+            text-decoration: none;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin-right: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item.phone .contact-icon {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        
+        .contact-item.website .contact-icon {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        
+        .contact-item.facebook .contact-icon {
+            background: linear-gradient(135deg, #1877f2, #0c5fcc);
+            color: white;
+        }
+        
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .contact-text {
+            flex: 1;
+        }
+        
+        .contact-label {
+            font-size: 11px;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+        
+        .contact-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: auto;
+            padding-top: 20px;
+            animation: fadeIn 0.8s ease-out 0.6s both;
+        }
+        
+        .btn-action {
+            flex: 1;
+            padding: 16px;
+            border-radius: 16px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 56px;
+        }
+        
+        .btn-action::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-action:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-save-contact {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            color: white;
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+        }
+        
+        .btn-save-contact:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(30, 58, 138, 0.4);
+        }
+        
+        .btn-save-whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+        }
+        
+        .btn-save-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: white;
+            padding: 14px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            max-width: 90%;
+        }
+        
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .notification-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .notification-text {
+            font-weight: 500;
+            color: #2d3748;
+            font-size: 14px;
+        }
+        
+        /* For very small screens */
+        @media (max-width: 380px) {
+            .contact-container {
+                padding: 25px 15px;
+                margin: 10px;
+                border-radius: 20px;
+            }
+            
+            .driver-name {
+                font-size: 22px;
+            }
+            
+            .driver-service {
+                font-size: 14px;
+            }
+            
+            .contact-item {
+                padding: 12px;
+            }
+            
+            .contact-icon {
+                width: 40px;
+                height: 40px;
+                margin-right: 12px;
+            }
+            
+            .contact-value {
+                font-size: 14px;
+            }
+            
+            .btn-action {
+                padding: 14px;
+                font-size: 14px;
+                min-height: 52px;
+            }
+        }
+        
+        /* For larger phones in landscape */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .contact-container {
+                min-height: auto;
+                max-height: 95vh;
+                overflow-y: auto;
+            }
+            
+            .driver-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .driver-avatar i {
+                font-size: 32px;
+            }
+            
+            .verified-badge {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .verified-badge i {
+                font-size: 12px;
+            }
+            
+            .driver-name {
+                font-size: 20px;
+            }
+            
+            .driver-service {
+                font-size: 13px;
+            }
+            
+            .description {
+                font-size: 13px;
+                margin-bottom: 15px;
+            }
+            
+            .contact-item {
+                margin-bottom: 10px;
+                padding: 10px;
+            }
+            
+            .contact-icon {
+                width: 36px;
+                height: 36px;
+                margin-right: 10px;
+            }
+            
+            .contact-value {
+                font-size: 13px;
+            }
+            
+            .action-buttons {
+                margin-top: 15px;
+                padding-top: 15px;
+            }
+            
+            .btn-action {
+                padding: 12px;
+                font-size: 13px;
+                min-height: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <div class="header-badge">
+            <i class="fas fa-star"></i>
+            Premium Driver Service
+        </div>
+        
+        <div class="driver-profile">
+            <div class="driver-avatar">
+                <i class="fas fa-user-tie"></i>
+                <div class="verified-badge">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+            
+            <div class="driver-name">Kumar</div>
+            <div class="driver-service">
+                <i class="fas fa-car"></i>
+                Spacia Cab Service
+            </div>
+            
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="rating-text">4.8 (324 reviews)</span>
+            </div>
+        </div>
+        
+        <p class="description">Save Kumar's contact information for quick and reliable cab bookings. Professional service with years of experience.</p>
+        
+        <div class="contact-info">
+            <div class="contact-item phone">
+                <a href="tel:+94785657954">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <div class="contact-label">Mobile</div>
+                        <div class="contact-value">+94 78 565 7954</div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="contact-item website">
+                <a href="https://spacia2023.github.io/Cab/" target="_blank">
+                    <div class="contact-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="contact-text">
+                        <div class="contact-label">Website</div>
+                        <div class="contact-value">spacia2023.github.io/Cab</div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="contact-item facebook">
+                <a href="https://web.facebook.com/profile.php?id=61587009314525" target="_blank">
+                    <div class="contact-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="contact-text">
+                        <div class="contact-label">Facebook</div>
+                        <div class="contact-value">View Profile</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn-action btn-save-contact" id="saveContactBtn">
+                <i class="fas fa-address-book"></i>
+                Save Contact
+            </button>
+            
+            <button class="btn-action btn-save-whatsapp" id="saveWhatsAppBtn">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <div class="notification-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="notification-text" id="notificationText">Success!</div>
+    </div>
+
+    <script>
+        document.getElementById('saveContactBtn').addEventListener('click', function() {
+            // Create vCard data
+            const vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:Kumar
+ORG:Spacia Cab Service
+TEL:+94785657954
+URL:https://spacia2023.github.io/Cab/
+X-SOCIALPROFILE;TYPE=facebook:https://web.facebook.com/profile.php?id=61587009314525
+END:VCARD`;
+            
+            // Create a blob with the vCard data
+            const blob = new Blob([vCardData], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            
+            // Create a link element and trigger the download
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Kumar_SpaciaCabService.vcf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Show notification
+            showNotification('Contact file downloaded. Open to save to your phone.');
+        });
+        
+        document.getElementById('saveWhatsAppBtn').addEventListener('click', function() {
+            // Open WhatsApp with the driver's number
+            const phoneNumber = '+94785657954';
+            const message = encodeURIComponent('Hi Kumar, I found your contact online. I would like to book a cab.');
+            const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\s/g, '')}?text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+            
+            // Show notification
+            showNotification('Opening WhatsApp to connect with Kumar...');
+        });
+        
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(function() {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+        
+        // Add subtle animation on page load
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('.contact-item, .btn-action');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.5s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+        
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
