@@ -161,6 +161,23 @@
             gap: 8px;
         }
         
+        .owner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        
+        .owner-badge i {
+            font-size: 11px;
+        }
+        
         .rating {
             display: flex;
             align-items: center;
@@ -515,6 +532,11 @@
                 Spacia Cab Service
             </div>
             
+            <div class="owner-badge">
+                <i class="fas fa-crown"></i>
+                Owner & Driver
+            </div>
+            
             <div class="rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
@@ -590,7 +612,7 @@
             // Create vCard data
             const vCardData = `BEGIN:VCARD
 VERSION:3.0
-FN:Kumar
+FN:Kumar - Spacia Cab
 ORG:Spacia Cab Service
 TEL:+94785657954
 URL:https://spacia2023.github.io/Cab/
@@ -604,7 +626,7 @@ END:VCARD`;
             // Create a link element and trigger the download
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'Kumar_SpaciaCabService.vcf';
+            a.download = 'Kumar_SpaciaCab.vcf';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -617,13 +639,13 @@ END:VCARD`;
         document.getElementById('saveWhatsAppBtn').addEventListener('click', function() {
             // Open WhatsApp with the driver's number
             const phoneNumber = '+94785657954';
-            const message = encodeURIComponent('Hi Kumar, I found your contact online. I would like to book a cab.');
+            const message = encodeURIComponent("Hi Kumar, I'd like to save your contact for future booking with Spacia Cab Service.");
             const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\s/g, '')}?text=${message}`;
             
             window.open(whatsappUrl, '_blank');
             
             // Show notification
-            showNotification('Opening WhatsApp to connect with Kumar...');
+            showNotification('Opening WhatsApp to save contact...');
         });
         
         function showNotification(message) {
